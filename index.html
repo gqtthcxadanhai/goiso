@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Màn hình hiển thị gọi số tự động - UBND xã Đan Hải</title>
     <style>
+        /* Khóa cứng toàn màn hình, triệt tiêu thanh cuộn dọc */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
@@ -17,6 +18,7 @@
             overflow: hidden; 
         }
         
+        /* 1. THANH TIÊU ĐỀ TRÊN CÙNG */
         .header { 
             background-color: #1e3a8a; 
             text-align: center; 
@@ -27,30 +29,34 @@
         .header h1 { font-size: 2.5rem; text-transform: uppercase; letter-spacing: 2px; color: #ffffff; }
         .header h2 { font-size: 1.5rem; color: #f59e0b; margin-top: 5px; }
 
+        /* 2. LƯỚI HIỂN THỊ CÁC QUẦY (Tự động kéo giãn khít không gian giữa đầu và chân trang) */
         .grid-container { 
             flex-grow: 1;
-            padding: 15px;
+            padding: 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            grid-auto-rows: 1fr;
-            gap: 15px;
+            /* Chia màn hình thành 3 cột đều nhau */
+            grid-template-columns: repeat(3, 1fr);
+            /* Chia màn hình thành 2 hàng đều nhau chiếm trọn không gian */
+            grid-template-rows: repeat(2, 1fr);
+            gap: 20px;
             background-color: #09111e;
         }
 
+        /* Khung thẻ của từng quầy */
         .quay-card { 
             background: linear-gradient(145deg, #1e293b, #0f172a); 
-            border-radius: 12px; 
-            border: 2px solid #2e3d52; 
-            padding: 15px;
+            border-radius: 15px; 
+            border: 3px solid #2e3d52; 
+            padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
         }
 
         .quay-title { 
-            font-size: 1.8rem; 
+            font-size: 2.2rem; 
             color: #f59e0b; 
             font-weight: bold; 
             text-transform: uppercase;
@@ -58,34 +64,61 @@
         }
 
         .quay-linhvuc { 
-            font-size: 1rem; 
+            font-size: 1.1rem; 
             color: #94a3b8; 
             text-align: center;
-            margin-top: 2px;
+            font-style: italic;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            height: 2.6rem;
-            line-height: 1.3;
+            height: 3rem;
+            line-height: 1.4;
         }
 
+        /* Đẩy số thứ tự to hết cỡ để người dân nhìn rõ từ khoảng cách xa */
         .quay-number { 
-            font-size: 5.5rem; 
+            font-size: 7rem; 
             font-weight: bold; 
             color: #38bdf8; 
-            margin: auto 0;
-            text-shadow: 0 0 15px rgba(56,189,248,0.3);
+            text-shadow: 0 0 25px rgba(56,189,248,0.5);
+            margin: 10px 0;
+            font-family: monospace, sans-serif;
         }
 
         .quay-badge {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #ffffff;
             background-color: #1e3a8a;
-            padding: 6px 25px;
-            border-radius: 6px;
+            padding: 8px 35px;
+            border-radius: 8px;
             font-weight: bold;
             text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* 3. THANH CHỮ CHẠY DƯỚI CHÂN MÀN HÌNH */
+        .footer-marquee {
+            background-color: #1e3a8a;
+            border-top: 4px solid #f59e0b;
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: bold;
+            padding: 12px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 25s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
         }
     </style>
 </head>
@@ -99,7 +132,7 @@
     <div class="grid-container">
         <div class="quay-card" id="card-q1">
             <div class="quay-title">Quầy 1</div>
-            <div class="quay-linhvuc">Vavan phòng đăng ký đất đai</div>
+            <div class="quay-linhvuc">Văn phòng đăng ký đất đai</div>
             <div class="quay-number" id="history-q1">----</div>
             <div class="quay-badge">Mời số</div>
         </div>
@@ -137,6 +170,12 @@
             <div class="quay-linhvuc">Chứng thực</div>
             <div class="quay-number" id="history-q6">----</div>
             <div class="quay-badge">Mời số</div>
+        </div>
+    </div>
+
+    <div class="footer-marquee">
+        <div class="marquee-content">
+            Thời gian làm việc: Buổi sáng: Từ 7h30 đến 11h30 - Buổi chiều: Từ 13h30 đến 17h30
         </div>
     </div>
 
