@@ -8,7 +8,7 @@ function phatLoaGoiSo(soThuTu, soQuay) {
         
         const speech = new SpeechSynthesisUtterance(cauNoi);
         speech.lang = 'vi-VN'; 
-        speech.rate = 0.5; // Tốc độ vừa phải
+        speech.rate = 0.75; // Tốc độ vừa phải
         speech.pitch = 1.0; 
         
         window.speechSynthesis.speak(speech);
