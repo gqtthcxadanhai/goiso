@@ -5,7 +5,7 @@ function phatLoaGoiSo(soThuTu, soQuay) {
         const cauNoi = `Xin mời công dân số ${soThuTu} đến quầy số ${soQuay}`;
         const speech = new SpeechSynthesisUtterance(cauNoi);
         speech.lang = 'vi-VN'; 
-        speech.rate = 0.85; 
+        speech.rate = 0.6; 
         speech.pitch = 1.0; 
         window.speechSynthesis.speak(speech);
     }
