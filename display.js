@@ -1,18 +1,29 @@
 let lastCalledNumber = "";
 
-// Hàm xử lý phát loa thông báo ngắt nghỉ từng số chậm rãi
+// Hàm xử lý phát loa thông báo ngắt nghỉ từng số chậm rãi (Ưu tiên giọng Nữ miền Bắc)
 function phatLoaGoiSo(soThuTu, soQuay) {
     if ('speechSynthesis' in window) {
         // Tách chuỗi số thành từng số rời nhau bằng dấu phẩy (Ví dụ: "1, 0, 0, 2")
         const soDocTach = soThuTu.split('').join(', '); 
-        
-        // Câu thoại có dấu phẩy để máy tự động ngắt nghỉ khi đọc
         const cauNoi = `Xin mời công dân số, ${soDocTach}, đến quầy số, ${soQuay}`;
         
         const speech = new SpeechSynthesisUtterance(cauNoi);
         speech.lang = 'vi-VN'; 
-        speech.rate = 0.7; // Tốc độ đọc thong thả, rõ ràng
+        speech.rate = 0.7; // Tốc độ đọc thong thả
         speech.pitch = 1.0; 
+
+        // LẤY DANH SÁCH GIỌNG NÓI CÓ SẴN TRÊN TRÌNH DUYỆT
+        const voices = window.speechSynthesis.getVoices();
+        
+        // Tìm giọng Nữ miền Bắc (Google tiếng Việt)
+        const giongMienBac = voices.find(voice => 
+            voice.lang === 'vi-VN' && (voice.name.includes('Google') || voice.name.includes('Northern'))
+        );
+
+        // Nếu tìm thấy giọng Google miền Bắc thì áp dụng, không thì dùng giọng tiếng Việt mặc định
+        if (giongMienBac) {
+            speech.voice = giongMienBac;
+        }
         
         window.speechSynthesis.speak(speech);
     } else {
@@ -41,3 +52,11 @@ function capNhatManHinhTivi(soMoi, quayMoi) {
 
 // Đẩy hàm ra môi trường toàn cục để F12 Console gọi được trực tiếp
 window.capNhatManHinhTivi = capNhatManHinhTivi;
+
+// Nạp sẵn danh sách giọng nói khi vừa mở trang web
+if ('speechSynthesis' in window) {
+    window.speechSynthesis.getVoices();
+    window.speechSynthesis.onvoiceschanged = function() {
+        window.speechSynthesis.getVoices();
+    };
+}
