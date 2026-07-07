@@ -1,9 +1,6 @@
 let lastCalledNumber = "";
 
-// 1. Đẩy hàm ra môi trường toàn cục để F12 Console ở trình duyệt hiểu được luôn
-window.capNhatManHinhTivi = capNhatManHinhTivi;
-
-// 2. Hàm xử lý phát loa thông báo ngắt nghỉ từng số chậm rãi
+// Hàm xử lý phát loa thông báo ngắt nghỉ từng số chậm rãi
 function phatLoaGoiSo(soThuTu, soQuay) {
     if ('speechSynthesis' in window) {
         // Tách chuỗi số thành từng số rời nhau bằng dấu phẩy (Ví dụ: "1, 0, 0, 2")
@@ -23,7 +20,7 @@ function phatLoaGoiSo(soThuTu, soQuay) {
     }
 }
 
-// 3. Hàm xử lý nhận lệnh và đổi số trên màn hình Tivi
+// Hàm xử lý nhận lệnh và đổi số trên màn hình Tivi
 function capNhatManHinhTivi(soMoi, quayMoi) {
     const idThanhPhan = `history-q${quayMoi}`;
     const elementQuayPhu = document.getElementById(idThanhPhan);
@@ -41,3 +38,6 @@ function capNhatManHinhTivi(soMoi, quayMoi) {
         console.log(`Không tìm thấy ô hiển thị của Quầy số: ${quayMoi}`);
     }
 }
+
+// Đẩy hàm ra môi trường toàn cục để F12 Console gọi được trực tiếp
+window.capNhatManHinhTivi = capNhatManHinhTivi;
