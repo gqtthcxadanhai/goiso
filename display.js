@@ -1,3 +1,8 @@
+let lastCalledNumber = "";
+// THÊM DÒNG NÀY VÀO: Đẩy hàm ra môi trường toàn cục để F12 Console hiểu được
+window.capNhatManHinhTivi = capNhatManHinhTivi; 
+function phatLoaGoiSo(soThuTu, soQuay) {
+   // ... giữ nguyên phần code phía dưới ...
 function phatLoaGoiSo(soThuTu, soQuay) {
     if ('speechSynthesis' in window) {
         // Tách chuỗi số thành từng số rời nhau bằng dấu phẩy (Ví dụ: "1, 0, 0, 2,")
