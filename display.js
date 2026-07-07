@@ -1,6 +1,6 @@
 let lastCalledNumber = "";
 
-// Hàm xử lý phát loa thông báo ngắt nghỉ từng số chậm rãi (Ưu tiên giọng Nữ miền Bắc)
+// Hàm xử lý phát loa thông báo ngắt nghỉ từng số chậm rãi (Ưu tiên giọng Nữ miền Bắc Microsoft An / Google)
 function phatLoaGoiSo(soThuTu, soQuay) {
     if ('speechSynthesis' in window) {
         // Tách chuỗi số thành từng số rời nhau bằng dấu phẩy (Ví dụ: "1, 0, 0, 2")
@@ -15,12 +15,12 @@ function phatLoaGoiSo(soThuTu, soQuay) {
         // LẤY DANH SÁCH GIỌNG NÓI CÓ SẴN TRÊN TRÌNH DUYỆT
         const voices = window.speechSynthesis.getVoices();
         
-        // Tìm giọng Nữ miền Bắc (Google tiếng Việt)
+        // Ưu tiên tìm giọng Microsoft An (Miền Bắc), Google tiếng Việt hoặc Northern
         const giongMienBac = voices.find(voice => 
-            voice.lang === 'vi-VN' && (voice.name.includes('Google') || voice.name.includes('Northern'))
+            voice.lang === 'vi-VN' && (voice.name.includes('An') || voice.name.includes('Google') || voice.name.includes('Northern'))
         );
 
-        // Nếu tìm thấy giọng Google miền Bắc thì áp dụng, không thì dùng giọng tiếng Việt mặc định
+        // Nếu tìm thấy giọng miền Bắc thì áp dụng, không thì dùng giọng tiếng Việt mặc định
         if (giongMienBac) {
             speech.voice = giongMienBac;
         }
